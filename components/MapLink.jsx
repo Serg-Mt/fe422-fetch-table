@@ -1,3 +1,3 @@
 export function MapLink({ geo, text }) {
-  return <a href={`https://maps.google.com/?lat=${geo.lat}&lng=${geo.lng}`} >{text}</a>
+  return <a href={`https://maps.google.com/maps?ll=${geo.lat},${geo.lng}`} >{text}</a>
 }

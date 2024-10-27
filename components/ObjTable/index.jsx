@@ -2,7 +2,8 @@ import classes from './ObjTable.module.css';
 
 
 
-export function ObjTable({ data, config }) {
+export function ObjTable({ data, config  }) {
+  console.debug('ObjTable render');
   return <table className={classes.objtable}>
     <thead>
       <tr>
