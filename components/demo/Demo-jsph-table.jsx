@@ -1,7 +1,7 @@
 import { Fetcher } from '@/components/Fetcher';
 import { ObjTable } from '@/components/ObjTable';
 import { useState } from 'react';
-import { config } from '../configs/jsph'
+import { config } from '../configs/jsph';
 import { useCallback } from 'react';
 
 

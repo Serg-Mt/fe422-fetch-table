@@ -1,5 +1,8 @@
 .objtable {
   border-collapse: collapse;
+  thead {
+    text-align: center;
+  }
 
   & td {
     border: 1px solid lightblue;

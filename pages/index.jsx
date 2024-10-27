@@ -8,7 +8,7 @@ export default function Home() {
     <Head>
       <title>Create Next App</title>
     </Head>
-    <DemoFetcher />
-    {/* <DemoJSPHTable /> */}
+    {/* <DemoFetcher /> */}
+    <DemoJSPHTable />
   </>;
 }
