@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Fetcher } from '../Fetcher';
-import OneUser from '../OneUser';
+
+import User from '../JSPH/User';
 
 export function DemoFetcher() {
   const
@@ -12,7 +13,7 @@ export function DemoFetcher() {
     <Fetcher
       url={'https://jsonplaceholder.typicode.com/users/' + id}
       onLoad={setUser}>
-      <OneUser user={user} />
+      <User user={user} />
     </Fetcher>
      {/* {user && <OneUser user={user} />} */}
   </>
