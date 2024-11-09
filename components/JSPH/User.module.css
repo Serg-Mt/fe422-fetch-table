@@ -1,20 +1,28 @@
 fieldset.usercard {
   font-family: cursive;
+
   & dl {
     margin: 0;
     display: grid;
     grid-template-columns: auto auto;
-    justify-content: start;
+    /* justify-content: start; */
+    justify-content: center;    
     justify-items: start;
     gap: 1px 10px;
   }
 
-  & dt:after {
-    content: ':';
+  & dt {
+    white-space: nowrap;
+    justify-self: end;
+    &:after {
+      content: ':';
+    }
   }
 
+
   & dd {
-    display: inline;
+    /* display: inline; */
+    text-wrap: balance;
     margin: 0;
     /* border: 1px gray inset; */
   }

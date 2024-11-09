@@ -31,7 +31,11 @@ export default function User({ user }) {
             </a>
           </dd>
           <dt>🏭company</dt>
-          <dd>{cname}</dd>
+          <dd>{cname}, 
+            <small>
+              {bs}
+            </small>
+          </dd>
           <dt>💬catch phrase</dt>
           <dd>{catchPhrase}</dd>
         </dl>
