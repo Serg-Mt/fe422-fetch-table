@@ -3,8 +3,8 @@ import classes from './ObjTable.module.css';
 import { useMemo } from 'react';
 
 
-export function ObjTable({ data, config }) {
-  console.debug('ObjTable render');
+export function ObjTable({ data, config, children }) {
+  console.debug('ObjTable render', Date.now());
   const
     [sortColumn, setSortColumn] = useState(null),
     [search, setSearch] = useState(''),
@@ -14,7 +14,7 @@ export function ObjTable({ data, config }) {
         .filter(row => {
           if (!search.length) return true;
           for (const key in row) {
-            console.log({ key, row }, row[key].includes);
+            // console.log({ key, row }, row[key].includes);
             if (row[key]?.includes?.(search)) return true;
           }
           return false;
@@ -22,14 +22,17 @@ export function ObjTable({ data, config }) {
     }, [data, sortColumn, search]);
   return <>
     <input type="search" value={search} onInput={event => setSearch(event.target.value)} />
-    <SimpleTable data={sorteredAndFilteredData} config={config} />
+    <SimpleTable data={sorteredAndFilteredData} config={config}>
+      {children}
+    </SimpleTable>
   </>;
 }
 
-function SimpleTable({ data, config }) {
+function SimpleTable({ data, config,children }) {
   return <table className={classes.objtable}>
     <THead config={config} />
     <TBody data={data} config={config} />
+    <tfoot>{children}</tfoot>
   </table>
 }
 
