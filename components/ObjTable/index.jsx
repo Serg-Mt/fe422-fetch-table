@@ -1,9 +1,8 @@
-import { useState } from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import classes from './ObjTable.module.css';
-import { useMemo } from 'react';
 
 
-export function ObjTable({ data, config, children }) {
+export function ObjTable({ data, config, addForm, editForm, editedId }) {
   console.debug('ObjTable render', Date.now());
   const
     [sortColumn, setSortColumn] = useState(null),
@@ -22,17 +21,21 @@ export function ObjTable({ data, config, children }) {
     }, [data, sortColumn, search]);
   return <>
     <input type="search" value={search} onInput={event => setSearch(event.target.value)} />
-    <SimpleTable data={sorteredAndFilteredData} config={config}>
-      {children}
-    </SimpleTable>
+    <SimpleTable
+      data={sorteredAndFilteredData}
+      config={config}
+      addForm={addForm}
+      editForm={editForm}
+      editedId={editedId}
+    />
   </>;
 }
 
-function SimpleTable({ data, config,children }) {
+function SimpleTable({ data, config, addForm, editForm, editedId }) {
   return <table className={classes.objtable}>
     <THead config={config} />
-    <TBody data={data} config={config} />
-    <tfoot>{children}</tfoot>
+    <TBody data={data} config={config} editForm={editForm} editedId={editedId} />
+    <tfoot>{addForm}</tfoot>
   </table>
 }
 
@@ -43,12 +46,21 @@ function THead({ config }) {
     </tr>
   </thead>;
 }
-function TBody({ data, config }) {
+function TBody({ data, config, editForm, editedId }) {
   return <tbody>
-    {data.map(obj => <tr key={obj.id} data-id={obj.id}>
-      {config.columns.map(({ title, content }) => <td key={title}>
-        {content(obj)}
-      </td>)}
-    </tr>)}
-  </tbody>;
+    {data.map(obj =>
+      String(obj.id) === editedId
+        ? <Fragment key={obj.id}>{editForm}</Fragment>
+        : <tr key={obj.id} data-id={obj.id}>
+          {
+            config.columns.map(({ title, content, getVal }) => {
+              // console.log('++', title, content, getVal);
+              return <td key={title}>
+                {content?.(obj) || getVal?.(obj) || '??'}
+              </td>
+            })
+          }
+        </tr>)
+    }
+  </tbody >;
 }
