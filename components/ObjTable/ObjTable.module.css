@@ -1,10 +1,25 @@
 .objtable {
   border-collapse: collapse;
+
   thead {
     text-align: center;
   }
 
   & td {
     border: 1px solid lightblue;
+    user-select: none;
+
+    padding: .1em;
+    &::after {
+      content: '';
+    }
   }
-}
+
+
+  td.sorted::after {
+    content: '⏷';
+  }
+
+  td.sorted.reverse::after {
+    content: '⏶';
+  }
