@@ -7,6 +7,20 @@ function cx(...params) {
     .join(' ');
 }
 
+function getColumnDataAsStringOrNumber(obj, config, index) {
+  console.log('getColumnDataAsString');
+  const
+    { content, getVal } = config.columns[index];
+  if (getVal) return getVal(obj);
+  if (content) {
+    const
+      result = content(obj);
+    if (['number', 'string'].includes(typeof result))
+      return result;
+  }
+  return '';
+}
+
 
 export function ObjTable({ data, config, addForm, editForm, editedId }) {
   console.debug('ObjTable render', Date.now());
@@ -16,24 +30,28 @@ export function ObjTable({ data, config, addForm, editForm, editedId }) {
     sortedAndFilteredData = useMemo(() => {
       const
         filtered = search
-          ? data.filter(row => {
-            for (const key in row) {
-              // console.log({ key, row }, row[key].includes);
-              if (row[key]?.includes?.(search)) return true;
-            }
-            return false;
-          })
+          ? data.filter(row =>
+            config.columns
+              .map((_, i) => String(getColumnDataAsStringOrNumber(row, config, i)))
+              .some(s => s.includes(search))
+
+            // for (const key in row) {
+            //   // console.log({ key, row }, row[key].includes);
+            //   if (row[key]?.includes?.(search)) return true;
+            // }
+            // return false;
+          )
           : data,
         sorted = sortColumn
           ? filtered.sort((a, b) => {
-            function valueForSort(obj, content, getVal) {
-              return
-            }
             const
-              { content, getVal } = config.columns[Math.abs(sortColumn) - 1],
-              cellA = getVal ? getVal(a) : '',
-              cellB = getVal ? getVal(b) : '';
-            return Math.sign(sortColumn) * cellA.localeCompare(cellB);
+              cellA = getColumnDataAsStringOrNumber(a, config, Math.abs(sortColumn) - 1),
+              cellB = getColumnDataAsStringOrNumber(b, config, Math.abs(sortColumn) - 1),
+              compareResult = 'string' === typeof cellA
+                ? cellA.localeCompare(cellB)
+                : cellA - cellB // number;
+
+            return Math.sign(sortColumn) * compareResult;
           })
           : filtered;
       return sorted;

@@ -17,9 +17,9 @@
 
 
   td.sorted::after {
-    content: '⏷';
+    content: '▲';
   }
 
   td.sorted.reverse::after {
-    content: '⏶';
+    content: '▼';
   }
