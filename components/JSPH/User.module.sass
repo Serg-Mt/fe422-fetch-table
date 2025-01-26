@@ -1,0 +1,46 @@
+$bg-card: linear-gradient(135deg,Gainsboro,WhiteSmoke,Gainsboro) //WhiteSmoke //Gainsboro
+$bg-field : white
+
+fieldset.usercard
+  width: fit-content
+  font-family: cursive
+  background: $bg-card
+  border-radius: .5em
+
+  & legend,
+  & dt,
+  & dd
+    background-color: $bg-field
+    border: 1px inset white
+    border-radius: 1em
+    
+    padding: 0 .5em
+
+  & dl
+    margin: 0
+    display: grid
+    grid-template-columns: auto auto
+    /* justify-content: start; */
+    justify-content: center
+    justify-items: start
+    gap: 1px 0
+
+    & dt
+      white-space: nowrap
+      justify-self: end
+      border-right-style: none
+      border-top-right-radius: 0
+      border-bottom-right-radius: 0
+      &:after
+        content: ':'
+
+    & dd
+      padding-left: 0
+      /* display: inline; */
+      text-wrap: balance
+      // justify-self: start
+      margin: 0
+      border-left-style: none
+      border-top-left-radius: 0
+      border-bottom-left-radius: 0
+    /* border: 1px gray inset; */

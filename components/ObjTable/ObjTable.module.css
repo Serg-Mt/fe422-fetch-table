@@ -9,17 +9,19 @@
     border: 1px solid lightblue;
     user-select: none;
 
-    padding: .1em;
-    &::after {
-      content: '';
-    }
+    padding: .2em;
+
+    /* &::after {
+      content: '△';
+    } */
   }
+}
 
 
-  td.sorted::after {
-    content: '▲';
-  }
+td.sorted::after {
+  content: '▲';
+}
 
-  td.sorted.reverse::after {
-    content: '▼';
-  }
+td.sorted.reverse::after {
+  content: '▼';
+}
